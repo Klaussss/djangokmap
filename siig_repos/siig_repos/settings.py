@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'userlogin',
     'viewfolder',
     'makeplan',
+    'kmap',
 ]
 
 MIDDLEWARE = [
