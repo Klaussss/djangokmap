@@ -1,0 +1,36 @@
+
+<div style="background-color:grey;text-align:right">
+		Welcome! <a>{{ username }}</a>; <a href="/logout/{{username}}"> Logout </a>
+</div>
+<form method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	<table>
+		<tr width="400px">
+			{{ upload.as_p }}
+		</tr>
+		<tr width="200px">
+			<td width="100px"> <input type="reset" value="reset"> </td>
+			<td width="100px"> <input type="submit" value="upload"> </td>
+		</tr>
+	</table>
+</form>
+<div> 
+	<table class="filelist">
+		<tr class="head">
+			<th class="list"> Uploader </th>
+			<th class="list"> File Name </th>
+			<th class="list"> Brief Desc </th>
+			<th class="list"> Operation </th>
+			<th class="list"> Operation </th>
+		</tr>
+		{% for file in files %}
+		<tr class="row0">
+			{% for info in file %}
+			<td class="list"> {{ info }}  </td>
+			{% endfor %}
+			<td class="list"><a href="{{path}}{{file.1}}/download"> Download </a> </td>
+			<td class="list"><a href="{{path}}{{file.1}}/delete"> Delete </a> </td>
+		<tr>
+		{% endfor %}
+	</table>
+</div>

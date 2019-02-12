@@ -1,0 +1,38 @@
+{% include 'public/head.html' %}
+<body>
+	<div style="background-color:grey;text-align:right">
+		Welcome! <a>{{ username }}</a>; <a href="logout/{{username}}"> Logout </a>
+	</div>
+
+	<div style="background-color:#B0C4DE">
+	<table>
+	<tr>
+		<td> <h4> File Clouds: </h4> </td>
+	</tr>
+	<tr>
+		<td>
+		<a href="personalfolder/{{username}}"><label class="BigButton"> My folder 
+		</label></a>
+		</td>
+		<td>
+		<a href="publicfolder/{{username}}"><label class="BigButton"> Public folder </label></a>
+		</td>
+	</tr>
+	</table>
+	</div>
+	<div style="background-color:#B0C4DE">
+	<table>
+	<tr>
+		<td> <h4> Plans: </h4> </td>
+	</tr>
+	<tr>
+		<td>
+		<a href="makeplan/{{username}}"><label class="BigButton"> My plan</label></a>
+		</td>
+		<td>
+		<a href="viewplan/{{username}}"><label class="BigButton"> View plans </label></a>
+		</td>
+	</tr>
+	</table>
+	</div>
+</body>

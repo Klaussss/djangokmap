@@ -1,0 +1,39 @@
+<div> 
+	<table class="planlist">
+		<tr> 
+		  <th class="planhead">Day</th> 
+		  <th class="planhead">Plan</th> 
+		  <th class="planhead">Summary</th> 
+		</tr>
+		{% if inputtype == "label"%}
+		{% for id,plan,summary in list_plan %}
+		<tr>
+		<td>
+			<label class="infoplansmall">{{id}}</label>	
+		</td>
+		<td>
+			<label class="infoplan">{{plan}}</label>	
+		</td>
+		<td>
+			<label class="infoplan">{{summary}}</label>	
+		</td>
+		</tr>
+		{% endfor %}
+		{% endif %}
+		{% if inputtype == "edit"%}
+		{% for id,plan,summary in list_plan %}
+		<tr>
+		<td>
+			<label class="infoplansmall">{{id}}</label>	
+		</td>
+		<td>
+			<input class="inputplan" type="text"  value="{{plan}}" name="plan{{id}}"></input>	
+		</td>
+		<td>
+			<input class="inputplan" type="text"  value="{{summary}}" name="summary{{id}}"></input>	
+		</td>
+		</tr>
+		{% endfor %}
+		{% endif %}
+	</table>
+</div>

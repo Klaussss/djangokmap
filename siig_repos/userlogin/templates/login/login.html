@@ -1,0 +1,73 @@
+{% load staticfiles %}
+{% include 'public/head.html' %}
+<body>
+<div class="head">
+	<h1>Welcome to SIIG </h1>
+</div>
+<div class="login">
+	<form action="checkinfo" method="post"  >
+		{% csrf_token %} 
+		<table cellspacing="20px" border="0px">
+		<tr>
+		<td width="600px">
+		<div>
+			<hr>
+			<h4>What you can do here:</h4>
+			<ul>
+				<li>Download and upload files, share with others</li>
+				<li>Make plan</li>
+				<li>Find resources</li>
+			</ul>
+		</div>
+		</td>
+		<td >
+		<table>
+		<tr>
+			<td><label > UserName: </label></td>
+			<td><input name="username" type="text" placeholder="Input your username here" > </input></td>
+		</tr>
+		<tr>
+			<td><label > PassWord: </label></td>
+			<td><input name="password" type="password" placeholder="Input your password here" > </input></td>
+		</tr>
+		<tr>
+			<td align="center"><input type="reset" value="reset"/></td>
+			<td align="center"><input type="submit" value="login"></input></td>
+		</tr>
+		</table>
+		</td>
+		</tr>
+		</table>
+		<div align="center">
+			<a href="http://geori.upc.edu.cn/2018/0526/c10380a151965/page.htm">Visitor? Come here!</a>
+		</div>
+		<br>
+		<div align="center">
+			<a href="http://bing.com">Notice</a>
+		</div>
+	</form>
+	<hr>
+</div>
+<div type="text-align:center">
+	New member? <a href = "/register"> Register!</a><br>
+</div>
+
+<div>
+	<hr>
+	<!--Related website-->
+	We also strongly recommend you to visit some helpful website<br>
+	{% include 'public/publicwebsite.html' %}
+	<br>
+</div>
+
+<div class="bottom">
+	<hr>
+	<!-- Help info :-->
+	If you have any question, please contact:<br>
+	{% include 'public/contactinfo.html' %} <br>
+	This webpage is design and matainted by CuiChao
+	<br>
+	Mobile: 13770961126
+</div>
+
+</body>

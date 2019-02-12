@@ -1,0 +1,72 @@
+{% include 'publicmp/head.html' %}
+<body>
+<div style="background-color:grey;text-align:right">
+		Welcome! <a>{{ username }}</a>; <a href="/logout/{{username}}"> Logout </a>
+</div>
+<h2> My Plan </h2>
+<form action="{{username}}" method="post">
+	{%csrf_token%}
+	<table class='planlist'>
+	<tr>
+	<td>
+		<select name="searchtitleresult" class="selectplan">
+			{%for i in plantitles%}
+			<option> {{i}}</option>
+			{%endfor %}
+		</select>
+	</td>
+	<td>
+		<input type="submit" name="searchtitle" value="Search" class="submitplan"> </input>
+	</td>
+	</tr>
+	<tr>
+	<!-- Title -->
+	<td>
+		<label class="labelplan"> Title </label>
+	</td>
+	<td> 
+	{%if inputtype == 'edit'%}
+	<input name="planid" type="text" value="{{planid}}"></input>
+	{%endif%}
+	{%if inputtype == 'label'%}
+	<label class="infoplansmall"> {{planid}}</label>
+	{%endif%}
+	</td>
+
+	<!-- Submit to-->
+	<td> <label class="labelplan"> Submit to</label> </td>
+	<td>
+	{%if inputtype == 'edit'%}
+	<select name="submitto" value="{{submitto}}" class="selectplan">
+        	{%include 'publicmp/users.html'%}
+        </select>
+	{%endif%}
+	{%if inputtype == 'label'%}
+		<label class="infoplansmall"> {{submitto}} </label>
+	{%endif%}
+	</td>
+	<!-- Share to-->
+	<td> <label class="labelplan"> Share to</label> </td>
+	<td>
+	{%if inputtype == "edit"%}
+	<select name="shareto" value="{{shareto}}" class="selectplan">
+        	{%include 'publicmp/users.html'%}
+        </select>
+	{%endif%}
+	{%if inputtype == "label"%}
+	<td>
+		<label class="infoplansmall">{{shareto}}<label>
+	</td>
+	{%endif%}
+	</td>
+	</tr>
+	<table>
+	{%include 'publicmp/showplans.html'%}
+</form>
+<h2> Comments </h2>
+<form action="{{username}}" method="post">
+	{%csrf_token%}
+	
+	{%include 'publicmp/showcomments.html'%}
+</form>
+</body>

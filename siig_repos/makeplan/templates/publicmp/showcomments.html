@@ -1,0 +1,32 @@
+<div>
+	<table class="planlist">
+		<tr>
+			<th class="planhead"> Commenter </th>
+			<th class="planhead"> Time </th>
+			<th class="planhead"> Content </th>
+		</tr>
+		{% for commenter,time,content in list_comment %}
+		<tr>
+			<td > 
+			<label class="infoplansmall">{{commenter}}</label>	
+			</td>
+			<td >  
+			<label class="infoplansmall">{{time|date:"Y-m-d H:i:s"}}</label>	
+			</td>
+			<td >  
+			<label class="infoplan">{{content}}</label>	
+			</td>
+		</tr>
+		{%endfor%}
+	</table>
+	<table class="planlist" >
+		<tr>
+		<td>
+			<input class="inputplan" width="600px" type="text" name="newcomment" placeholder="inputyourcomment here" ></input>	
+		</td>
+		</tr>
+		<tr>
+			<td><input class="submitplan" name="addcomment" type="submit" value="Add"></input></td>
+		</tr>
+	</table>
+</div>

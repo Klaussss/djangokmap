@@ -1,0 +1,12 @@
+{% include 'publicmp/planstable.html' %}
+<div>
+	<table>
+		<tr>
+			<td><input class="submitplan" name="deleteplan" type="submit" value="Delete"></input></td>
+			<td><input class="submitplan" name="modifyplan" type="submit" value="Modify"></input></td>
+		{% if inputtype == "edit"%}
+			<td><input class="submitplan" name="saveplan"  type="submit" value="Save"></input></td>
+		{%endif%}
+		</tr>
+	</table>
+</div>

@@ -1,0 +1,36 @@
+{% include 'public/head.html' %}
+<body>
+	<div >
+		<h2 style="background-color:grey">Sorry! Login/Register failed</h2>
+		Please check your input and <a href="/login">try again!</a>
+	</div>
+	
+	<div>
+	<h3 style="background-color:gray">Reason:</h3>
+	{{ reason }}
+	</div>
+
+	<hr>
+<div type="text-align:center">
+	New member? <a href = "/register"> Register!</a><br>
+</div>
+
+<div>
+	<hr>
+	<!--Related website-->
+	We also strongly recommend you to visit some helpful website<br>
+	{% include 'public/publicwebsite.html' %}
+	<br>
+</div>
+
+<div class="bottom">
+	<hr>
+	<!-- Help info :-->
+	If you have any question, please contact:<br>
+	{% include 'public/contactinfo.html' %} <br>
+	This webpage is design and matainted by CuiChao
+	<br>
+	Mobile: 13770961126
+</div>
+
+</body>

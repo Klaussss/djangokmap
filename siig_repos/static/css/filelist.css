@@ -1,0 +1,24 @@
+.filelist{
+	width:100%;
+	display:block;
+	font:normal 20px "Trebuchet MS",Verdana,Helvetica,sans-serif;
+	color:#4f6b72;
+	background:#E6EAE9;
+	border:5px;
+
+}
+.head{
+	font:bold 20px "Trebuchet MS",Verdana,Helvetica,sans-serif;
+	color:#797268;
+	background:#E6EAE9;
+}
+.list{
+	width:300px;
+	text-align:center
+}
+.row1{
+	background:#E6EAE9;
+}
+.row0{
+	background:white;
+}

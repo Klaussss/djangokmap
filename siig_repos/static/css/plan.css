@@ -1,0 +1,58 @@
+.planlist{
+	width:100%;
+	display:block;
+	font:normal 20px "Trebuchet MS",Verdana,Helvetica,sans-serif;
+	color:#4f6b72;
+	background:#E6EAE9;
+	border:5px;
+	align:center;
+	text-align:center;
+}
+.planhead{
+	font:bold 20px "Trebuchet MS",Verdana,Helvetica,sans-serif;
+	color:#797268;
+	background:#E6EAE9;
+}
+.planrow{
+	background:#E6EAE9;
+}
+.labelplan{
+	font:normal 18px "Trebuchet MS",Verdana,Helvetica,sans-serif;
+	display:block;
+	width:100px;
+}
+.infoplan{
+	font:normal 18px "Trebuchet MS",Verdana,Helvetica,sans-serif;
+	display:block;
+	width:500px;
+	background-color:white;
+	color:black;
+	text-align:center;
+}
+.infoplansmall{
+	font:normal 18px "Trebuchet MS",Verdana,Helvetica,sans-serif;
+	display:block;
+	width:200px;
+	background-color:white;
+	color:black;
+	text-align:center;
+}
+.inputplan{
+	font:normal 18px "Trebuchet MS",Verdana,Helvetica,sans-serif;
+	display:block;
+	width:500px;
+	background-color:white;
+}
+.h1css{
+	color:red;
+}
+.submitplan{
+	display:block;
+	font:normal 15px "Trebuchet MS",Verdana,Helvetica,sans-serif;
+}
+.selectplan{
+	display:block;
+	font:normal 15px "Trebuchet MS",Verdana,Helvetica,sans-serif;
+	width:100px;
+
+}

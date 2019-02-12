@@ -1,0 +1,64 @@
+{% include 'publicmp/head.html' %}
+<body>
+<div style="background-color:grey;text-align:right">
+		Welcome! <a>{{ username }}</a>; <a href="/logout/{{username}}"> Logout </a>
+</div>
+<h2> View Plan </h2>
+<form action="{{username}}" method="post">
+	{%csrf_token%}
+	<table class='planlist'>
+	<tr>
+	<td>
+		<label class="labelplan"> Name </label>
+	</td>
+	<td>
+		<select name="searchshareresult" class="selectplan">
+			{%for i in list_sharer%}
+			<option> {{i}}</option>
+			{%endfor %}
+		</select>
+	</td>
+	<td>
+		<input type="submit" name="searchshare" value="Search" class="submitplan"> </input>
+	</td>
+	<td>
+		<label class="labelplan"> Title </label>
+	</td>
+	<td>
+		<select name="searchtitleresult" class="selectplan">
+			{%for i in plantitles%}
+			<option> {{i}}</option>
+			{%endfor %}
+		</select>
+	</td>
+	<td>
+		<input type="submit" name="searchtitle" value="Search" class="submitplan"> </input>
+	</td>
+	</tr>
+	</table>
+	<table class='planlist'>
+	<tr>
+	<!-- Title -->
+	<td>
+		<label class="labelplan"> Name </label>
+	</td>
+	<td> 
+	<label class="infoplansmall"> {{sharer}}</label>
+	</td>
+	<td>
+		<label class="labelplan"> Title </label>
+	</td>
+	<td> 
+	<label class="infoplansmall"> {{planid}}</label>
+	</td>
+	</tr>
+	<table>
+	{%include 'publicmp/planstable.html'%}
+</form>
+<h2> Comments </h2>
+<form action="{{username}}" method="post">
+	{%csrf_token%}
+	
+	{%include 'publicmp/showcomments.html'%}
+</form>
+</body>
