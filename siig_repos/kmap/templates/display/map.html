@@ -17,14 +17,21 @@
 	<hr>
 </div>
 
-<div>
+<div >
 	<table>
 		<tr>
 <td>
+<div class="panel-body" style="height:680px; width:200px; overflow:scroll">
 			{%for i in List %}
-			<label> {{ i.rela }}</label>
+			{% for key,value in i.items %}
+			<label> {{ key}}:</label>
+			<label> {{value}}</label>
+			 <br>
+			{%endfor %}
+			<a href="/displaybykey/{{i.id__}}"> >></a>
 			<hr>
 			{%endfor %}
+</div>
 </td>
 <!-- Source -->
 <td id="map">
@@ -37,7 +44,7 @@ links.forEach(function(link)
   link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
   link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
 });
-var width = 1020, height = 680;
+var width = 1240, height = 680;
 var force = d3.layout.force()
     .nodes(d3.values(nodes))
     .links(links)

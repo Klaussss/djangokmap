@@ -34,14 +34,14 @@ class formatredis:
 class formatstring(formatredis):
     def targetfunc(self,dicstr):
         try:
-            strout = "lat:"+dicstr["location,lat".encode()].decode().split(".")[0] + ",lng:" + dicstr["location,lng".encode()].decode().split(".")[0]
+            strout = "lat:"+dicstr["location,lat"].split(".")[0] + ",lng:" + dicstr["location,lng"].split(".")[0]
             return strout
         except Exception as err:
             return "";
 
     def sourcefunc(self,dicstr):
         try:
-            namelist =  dicstr["key"].decode().split(":") 
+            namelist =  dicstr["key"].split(":") 
             return namelist[len(namelist)-1]
         except Exception as err:
             return ""
@@ -62,15 +62,25 @@ from pymongo import MongoClient
 
 conn = MongoClient('127.0.0.1', 27017)
 db = conn.mydb
-my_set = db.test_set
+relation_set = db.relation_set
+property_set = db.property_set
 
 allkeys = red.r.keys(pathbase+"*")
 
 for key in allkeys:
-    print (key.decode())
-    dictstr = red.r.hgetall(key)
-    dictstr["key"] = key
+    dictstrin = red.r.hgetall(key)
+
+    dictstr=dict()
+
+    for ikey in dictstrin.keys():
+        dictstr[ikey.decode()] = dictstrin[ikey].decode()
+
+    print(dictstr)
+
+    dictstr["key"] = key.decode()
     
     formatstr = formatstring(dictstr) 
+    dictstr["id__"] = formatstr.sourcefunc(dictstr) 
+    property_set.insert(dictstr)
     result = formatstr.formatstring()
-    my_set.insert(result)
+    relation_set.insert(result)
