@@ -20,4 +20,5 @@ from kmap import views as kmap_view;
 urlpatterns = [
     #path('admin/', admin.site.urls),
     path('display', kmap_view.display),
+    path('displaybykey/<str:key>', kmap_view.displaybykey),
 ]

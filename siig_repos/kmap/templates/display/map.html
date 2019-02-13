@@ -2,6 +2,32 @@
 <meta charset="utf-8">
 <style>.link {  fill: none;  stroke: #666;  stroke-width: 1.5px;}#licensing {  fill: green;}.link.licensing {  stroke: green;}.link.resolved {  stroke-dasharray: 0,2 1;}circle {  fill: #ccc;  stroke: #333;  stroke-width: 1.5px;}text {  font: 12px Microsoft YaHei;  pointer-events: none;  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;}.linetext {    font-size: 12px Microsoft YaHei;}</style>
 <body>
+
+<div>
+	<form action="/display" method="post"  >
+		{% csrf_token %}
+		<table>
+		<tr>
+			<td><label > Search By key: </label></td>
+			<td><input name="key" type="text" placeholder="Input your key here" > </input></td>
+			<td align="center"><input type="submit" value="search"></input></td>
+		</tr>
+		</table>
+	</form>
+	<hr>
+</div>
+
+<div>
+	<table>
+		<tr>
+<td>
+			{%for i in List %}
+			<label> {{ i.rela }}</label>
+			<hr>
+			{%endfor %}
+</td>
+<!-- Source -->
+<td id="map">
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script>
 	var links = {{ Dict|safe }}; 
@@ -11,7 +37,7 @@ links.forEach(function(link)
   link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
   link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
 });
-var width = 1920, height = 1080;
+var width = 1020, height = 680;
 var force = d3.layout.force()
     .nodes(d3.values(nodes))
     .links(links)
@@ -20,7 +46,7 @@ var force = d3.layout.force()
     .charge(-1500)
     .on("tick", tick)
     .start();
-var svg = d3.select("body").append("svg")
+var svg = d3.select('td[id="map"]').append("svg")
     .attr("width", width)
     .attr("height", height);
 var marker=
@@ -164,3 +190,8 @@ function transform2(d) {
       return "translate(" + (d.x) + "," + d.y + ")";
 }
 </script>
+</td>
+		</tr>
+</table>
+</div>
+</body>
