@@ -68,12 +68,7 @@ property_set = db.property_set
 allkeys = red.r.keys(pathbase+"*")
 
 for key in allkeys:
-    dictstrin = red.r.hgetall(key)
-
-    dictstr=dict()
-
-    for ikey in dictstrin.keys():
-        dictstr[ikey.decode()] = dictstrin[ikey].decode()
+    dictstr = red.hgetall(key)
 
     print(dictstr)
 
