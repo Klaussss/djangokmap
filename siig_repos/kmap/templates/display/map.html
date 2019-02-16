@@ -23,14 +23,33 @@
 <td>
 <div class="panel-body" style="height:600px; width:400px; overflow:scroll">
 			 {%for i in List %}
-			{% for key,value in i.items %}
-			<label> {{ key}}:</label>
-			{% for iv in value %}
-			<label> {{iv}}</label>
-			 <br>
-			 {% endfor %}
+			 <!--
+			{% for key in keylist %}
+			<label style="font-family:arial;color:red;font-size:15px;" > {{ key}}:</label>
+			{{i|get_item:key}} 
+			<br>
 			{%endfor %}
+			 -->
+			<label style="font-family:arial;color:red;font-size:15px;" > Title:</label>
+			{% for t in i.Title %}
+			{{t}}
+			<br>
+			{%endfor%}
+
+			<label style="font-family:arial;color:red;font-size:15px;" > DOI:</label>
+			{% for t in i.DOI %}
+			{{t}}
+			<br>
+			{%endfor%}
+
+			<label style="font-family:arial;color:red;font-size:15px;" > Source:</label>
+			{% for t in i.Source %}
+			<a href={{t}}>{{t}}</a>
+			<br>
+			{%endfor%}
+
 			{% for it in i.Title %}
+			<label style="font-family:arial;color:red;font-size:15px;" > See more:</label>
 			<a href="/displaybykey/{{it}}"> >></a>
 			{%endfor%}
 			<hr>

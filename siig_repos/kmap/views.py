@@ -5,6 +5,11 @@ import json
 import re
 from pymongo import MongoClient
 
+from django.template.defaulttags import register
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
+
 # Create your views here.
 def display(request):
     conn = MongoClient('127.0.0.1', 27017)
@@ -38,7 +43,9 @@ def givepage(request,source):
     for item in list_item:
         list_itemdic += list(property_set.find({"Title":item},{"_id":0})) 
 
-    return render(request,"display/map.html",{'Dict':json.dumps(klist),'List':list_itemdic}) 
+    keylist= ['Title','DOI','Source']
+
+    return render(request,"display/map.html",{'Dict':json.dumps(klist),'List':list_itemdic,'keylist':keylist}) 
 
 def displaybykey(request,key):
     return givepage(request,key);
