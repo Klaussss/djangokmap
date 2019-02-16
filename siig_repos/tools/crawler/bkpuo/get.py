@@ -36,14 +36,6 @@ path = "PaperInfoFromBadiXS:"
 explain = "Paper information crawled from baidu xueshu ..."
 red.IndexKeyput(path,explain)
 
-# Connect to mongoDB:
-from pymongo import MongoClient
-
-conn = MongoClient('127.0.0.1', 27017)
-db = conn.mydb
-relation_set = db.paper_relation_set
-property_set = db.paper_property_set
-
 baseurl = "http://xueshu.baidu.com/s?wd={0}&rsv_bp=0&tn=SE_baiduxueshu_c1gjeupa&rsv_spt=3&ie=utf-8&f=8&rsv_sug2=0&sc_f_para=sc_tasktype%3D%7BfirstSimpleSearch%7D"
             
 
@@ -78,33 +70,23 @@ pattern = {
 
 # First of all, get the serial number of this paper
 url = baseurl.format(parse.quote(key))
-print ("Url is "+url)
 getHandler = getInfoWeb.getInfoWeb(u=url)
-code = getHandler.getHtml()
-if not code:
-    print ("---"+str(code))
-    exit(0)
-
+getHandler.getHtml()
 getHandler.setPattern(p='div[id="dtl_main"]',a='data-click')
 getHandler.getNode()
 result = getHandler.getData()
-if result: 
-    keygrp = result[0].split('data-click:')[1]
-    datajson = json.loads(keygrp.replace("'",'"'))
-else:
-    print ("--Error while analysis-")
-    exit(0)
+datajson = json.loads(result[0].split('data-click:')[1].replace("'",'"'))
 serialno = datajson["longsign"]
 
 # Get the basic information of current paper ... 
 urlbase2='http://xueshu.baidu.com/usercenter/paper/show?paperid={0}'
 url = urlbase2.format(parse.quote(serialno))
 getHandler = getInfoWeb.getInfoWeb(u=url)
-if not getHandler.getHtml():
-    print ("---")
-    exit(0)
+getHandler.getHtml()
 
 outresult = dict()
+outresult['relation'] = ""
+outresult['type'] = 0
 for keyget in pattern.keys():
     getHandler.setPattern(p=pattern[keyget]['p'],a=pattern[keyget]['a']);
     getHandler.getNode()
@@ -117,14 +99,7 @@ for keyget in pattern.keys():
             pass
 outresult['Source'] = [getHandler.responsehandler.geturl()]
 
-if not outresult['Title']:
-    print ("---")
-    exit(0)
-
-for i in range(1,len(outresult['DOI'])):
-    outresult['DOI'][i] = outresult['DOI'][i].replace('\u0001','')
-
-property_set.insert(outresult)
+print (outresult)
 
 referenceto="http://xueshu.baidu.com/usercenter/paper/search?wd=citepaperuri%3A({0})&type=reference&rn=10&page_no="
 citiedby="http://xueshu.baidu.com/usercenter/paper/search?wd=refpaperuri%3A({0})&type=citation&rn=10&page_no="
@@ -137,17 +112,11 @@ rcr["related_to"]=[]
 
 for i in range (1,5): 
     getHandler = getInfoWeb.getInfoWeb(u=referenceto.format(parse.quote(serialno))+str(i))
-    jraw = getHandler.getHtml()
-    if jraw:
-        rcr["reference"]  += [jraw]
+    rcr["reference"]  += [getHandler.getHtml()]
     getHandler = getInfoWeb.getInfoWeb(u=citiedby.format(parse.quote(serialno))+str(i))
-    jraw = getHandler.getHtml()
-    if jraw:
-        rcr["citied_by"]  += [jraw]
+    rcr["citied_by"]  += [getHandler.getHtml()]
     getHandler = getInfoWeb.getInfoWeb(u=relatedto.format(parse.quote(key))+str(i))
-    jraw = getHandler.getHtml()
-    if jraw:
-        rcr["related_to"] += [jraw]
+    rcr["related_to"] += [getHandler.getHtml()]
 
 
 outkeys = { 
@@ -166,6 +135,8 @@ for keyr in rcr.keys():
             jsondata = result_output['data']['papers']
             for item in jsondata:
                 outresult = dict()
+                outresult['relation'] = keyr + "_" + key
+                outresult['type'] = 1
                 for i in outkeys.keys():
                     try:
                         outresult[i] = (item['meta_di_info'][outkeys[i]])
@@ -174,29 +145,14 @@ for keyr in rcr.keys():
                 outresult['Author'] = []
                 for i in outresult['Author0']:
                     outresult['Author'].append(i['sc_name'][0])
+
                 outresult.pop('Author0')
                 if outresult['KeyWords']:
                     outresult['KeyWords'] = outresult['KeyWords'][0].split(",")
                 else:
                     outresult['KeyWords'] = []
-                outresult['Source'] = [outresult['Source']]
-
-                for i in range(0,len(outresult['DOI'])):
-                    outresult['DOI'][i] = outresult['DOI'][i].replace('\u0001','')
-                    print (outresult['DOI'][i])
-
-                property_set.insert(outresult)
-
-                # form the relation data here:
-
-                relation = dict();
-                relation['source'] = outresult['Title'][0]
-                relation['target'] = key
-                relation['rela'] = keyr
-                relation['type'] = 'resolved'
-
-                relation_set.insert(relation)
 
             
+                print (outresult)
         except Exception as err:
             pass

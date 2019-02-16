@@ -1,0 +1,1 @@
+python /home/cuichao/GitRepos/JZXN-C-DATA/Crawler/package/getInfoWeb.py -u  "https://pubs.geoscienceworld.org/geophysics/issue/84/1" -p 'div[class="al-article-items"]','h5[class="customLink item-title"]',a -a text | awk '{split($0,aa,"text:")}{if(length(aa[2])>0){print "python get.py -k \"" aa[2] "\""}}' | sh 
